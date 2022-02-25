@@ -1,6 +1,7 @@
 package es.s2o.selenium.pages;
 
 import es.s2o.selenium.domain.ReservationDTO;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,27 +22,10 @@ public class ReservationListPage extends PageObjectBase {
 
     private ReservationPage reservationPage;
 
-    private WebElementFacade tblList;
-    private WebElementFacade btnAdd;
+    @FindBy(className = "vy-journey_header_title")
+    private WebElementFacade title;
 
-    public void addReservations(ReservationDTO reservation) {
-        btnAdd.click();
-        reservationPage.registerReservation(reservation);
-    }
-
-    public List<ReservationDTO> getReservationList() {
-        LOGGER.debug("getReservationList starts");
-
-        List<Map<Object, String>> rows = inTable(tblList).getRows();
-        List<ReservationDTO> reservations = rows.stream().map(this::mapReservation).collect(Collectors.toList());
-        return reservations;
-    }
-
-    private ReservationDTO mapReservation(Map<Object, String> rowMap) {
-        ReservationDTO reservation = new ReservationDTO();
-        reservation.setOrigin(rowMap.get("Origin"));
-        reservation.setDestination(rowMap.get("Destination"));
-        reservation.setDate(rowMap.get("Date"));
-        return reservation;
+    public String getTitlePage() {
+        return title.getValue();
     }
 }

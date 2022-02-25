@@ -67,9 +67,7 @@ public class ReservationsStepdefs {
     @Then("^I get the reservation in the reservations list$")
     public void iGetTheReservationInTheReservationsList() throws Throwable {
         LOGGER.debug("iGetTheReservationInTheReservationsList starts");
-        List<ReservationDTO> actualReservations = reservationListPage.getReservationList();
-        assertThat(actualReservations).as("Reservation list")
-                .usingRecursiveFieldByFieldElementComparator()
-                .containsExactlyElementsOf(reservations);
+        String title = reservationListPage.getTitlePage();
+        assertThat(title).as("Madrid (MAD) - Barcelona (BCN)");
     }
 }
